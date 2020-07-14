@@ -7,35 +7,6 @@ class Course {
         this.exam = exam;
         this.classes = classes;
     }
-
-    static sortClasses(course, dayNames) {
-        let sorted0;
-        do {
-            sorted0 = true;
-            for (let i = 0; i < course.classes.length; i++) {
-                if (i !== course.classes.length - 1 && course.classes[i].code > course.classes[i + 1].code) {
-                    const t = course.classes[i + 1];
-                    course.classes[i + 1] = course.classes[i];
-                    course.classes[i] = t;
-                    sorted0 = false;
-                }
-                let sorted1;
-                do {
-                    sorted1 = true;
-                    for (let j = 0; j < course.classes[i].schedules.length - 1; j++) {
-                        const s0 = course.classes[i].schedules[j];
-                        const s1 = course.classes[i].schedules[j + 1];
-                        if (dayNames.indexOf(s0.day) > dayNames.indexOf(s1.day)) {;
-                            const t = s1;
-                            course.classes[i].schedules[j + 1] = s0;
-                            course.classes[i].schedules[j] = t;
-                            sorted1 = false;
-                        }
-                    }
-                } while (!sorted1);
-            }
-        } while (!sorted0);
-    }
 }
 
 class Class {
@@ -56,30 +27,14 @@ class Schedule {
     toText() {
         return this.day +
             ' ' +
-            Schedule.totalMinuteToTime(this.minuteFrom) +
+            JadwalKuliah.totalMinuteToTime(this.minuteFrom) +
             '-' +
-            Schedule.totalMinuteToTime(this.minuteTo)
+            JadwalKuliah.totalMinuteToTime(this.minuteTo)
     }
 
     overlap(schedule) {
         if (this.day !== schedule.day) return false;
         return (schedule.minuteFrom >= this.minuteFrom) ? (schedule.minuteFrom < this.minuteTo) : (schedule.minuteTo > this.minuteFrom);
-    }
-
-    static parse(string) {
-        return new Schedule(
-            string.substring(0, string.indexOf(' ')),
-            Schedule.timeToTotalMinute(string.substring(string.indexOf(' ') + 1, string.indexOf('-'))),
-            Schedule.timeToTotalMinute(string.substring(string.indexOf('-') + 1))
-        );
-    }
-
-    static timeToTotalMinute(string) {
-        return Number.parseInt(string.substring(0, string.indexOf('.'))) * 60 + Number.parseInt(string.substring(string.indexOf('.') + 1))
-    }
-
-    static totalMinuteToTime(totalMinute) {
-        return Number.parseInt(totalMinute / 60).toString().padStart(2, '0') + '.' + (totalMinute % 60).toString().padStart(2, '0');
     }
 }
 
@@ -100,10 +55,6 @@ class Xid {
     xid() {
         return `${this.courseCode}:${this.classCode}`;
     }
-
-    static parse(string) {
-        return new Xid(string.substring(0, string.indexOf(':')), string.substring(string.indexOf(':') + 1));
-    }
 }
 
 class ScheduleApp {
@@ -123,7 +74,7 @@ class ScheduleApp {
         this.configs = configs;
 
         this.courses.forEach((course) => { 
-            Course.sortClasses(course, this.configs.dayNames);
+            JadwalKuliah.sortClasses(course, this.configs.dayNames);
         });
 
         this.courseTable.createTHead().insertRow();
@@ -144,7 +95,7 @@ class ScheduleApp {
                 const classDiv = classContainerDiv.appendChild(document.createElement('div'));
                 classDiv.classList.add('class');
                 classDiv.addEventListener('click', () => {
-                    this.toggleClass(Xid.parse(classDiv.getAttribute(this._attrXid)));
+                    this.toggleClass(JadwalKuliah.parseToXid(classDiv.getAttribute(this._attrXid)));
                 })
                 classDiv.appendChild(document.createElement('p')).textContent = `KP ${item.code} (Kuota ${item.quota})`;
                 classDiv.setAttribute(this._attrXid, (new Xid(course.code, item.code)).xid());
@@ -167,7 +118,7 @@ class ScheduleApp {
             for (let i = 0; i <= this.configs.dayNames.length; i++) { 
                 tr.insertCell();
             }
-            tr.firstChild.textContent = Schedule.totalMinuteToTime(i * 60);
+            tr.firstChild.textContent = JadwalKuliah.totalMinuteToTime(i * 60);
         }
         this.updateScheduleTable();
     }
@@ -175,7 +126,7 @@ class ScheduleApp {
     toggleClass(xid) {
         const classDiv = this.courseTable.querySelector(`.class[${this._attrXid}='${xid.xid()}']`);
         if (classDiv.getAttribute(this._attrOverlapXid) !== null) return;
-        const prevClassXid = classDiv.parentElement.getAttribute(this._attrSelectedXid) === null ? null : Xid.parse(classDiv.parentElement.getAttribute(this._attrSelectedXid));
+        const prevClassXid = classDiv.parentElement.getAttribute(this._attrSelectedXid) === null ? null : JadwalKuliah.parseToXid(classDiv.parentElement.getAttribute(this._attrSelectedXid));
         const removeSelf = xid.xid() === (prevClassXid === null ? '' : prevClassXid.xid());
         if (removeSelf) {
             classDiv.classList.remove('class--selected');
@@ -261,4 +212,52 @@ class ScheduleApp {
 }
 
 class JadwalKuliah {
+    static sortClasses(course, dayNames) {
+        let sorted0;
+        do {
+            sorted0 = true;
+            for (let i = 0; i < course.classes.length; i++) {
+                if (i !== course.classes.length - 1 && course.classes[i].code > course.classes[i + 1].code) {
+                    const t = course.classes[i + 1];
+                    course.classes[i + 1] = course.classes[i];
+                    course.classes[i] = t;
+                    sorted0 = false;
+                }
+                let sorted1;
+                do {
+                    sorted1 = true;
+                    for (let j = 0; j < course.classes[i].schedules.length - 1; j++) {
+                        const s0 = course.classes[i].schedules[j];
+                        const s1 = course.classes[i].schedules[j + 1];
+                        if (dayNames.indexOf(s0.day) > dayNames.indexOf(s1.day)) {;
+                            const t = s1;
+                            course.classes[i].schedules[j + 1] = s0;
+                            course.classes[i].schedules[j] = t;
+                            sorted1 = false;
+                        }
+                    }
+                } while (!sorted1);
+            }
+        } while (!sorted0);
+    }
+
+    static parse(string) {
+        return new Schedule(
+            string.substring(0, string.indexOf(' ')),
+            JadwalKuliah.timeToTotalMinute(string.substring(string.indexOf(' ') + 1, string.indexOf('-'))),
+            JadwalKuliah.timeToTotalMinute(string.substring(string.indexOf('-') + 1))
+        );
+    }
+
+    static timeToTotalMinute(string) {
+        return Number.parseInt(string.substring(0, string.indexOf('.'))) * 60 + Number.parseInt(string.substring(string.indexOf('.') + 1))
+    }
+
+    static totalMinuteToTime(totalMinute) {
+        return Number.parseInt(totalMinute / 60).toString().padStart(2, '0') + '.' + (totalMinute % 60).toString().padStart(2, '0');
+    }
+
+    static parseToXid(string) {
+        return new Xid(string.substring(0, string.indexOf(':')), string.substring(string.indexOf(':') + 1));
+    }
 }

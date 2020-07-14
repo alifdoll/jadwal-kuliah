@@ -299,7 +299,7 @@
         let schedules = []
         classesJson.forEach((item) => {
             item['kp'].forEach((kp) => {
-                kp['jadwal'].forEach((schedule) => { schedules.push(Schedule.parse(schedule)) })
+                kp['jadwal'].forEach((schedule) => { schedules.push(JadwalKuliah.parse(schedule)) })
                 classes.push(new Class(
                     kp['kode'],
                     kp['kuota'],
