@@ -1,22 +1,3 @@
-class Course {
-    constructor(id, name, code, credits, exam, classes) {
-        this.id = id;
-        this.name = name;
-        this.code = code;
-        this.credits = credits;
-        this.exam = exam;
-        this.classes = classes;
-    }
-}
-
-class Class {
-    constructor(code, quota, schedules) {
-        this.code = code;
-        this.quota = quota;
-        this.schedules = schedules;
-    }
-}
-
 class Schedule {
     constructor(day, minuteFrom, minuteTo) {
         this.day = day;
@@ -35,14 +16,6 @@ class Schedule {
     overlap(schedule) {
         if (this.day !== schedule.day) return false;
         return (schedule.minuteFrom >= this.minuteFrom) ? (schedule.minuteFrom < this.minuteTo) : (schedule.minuteTo > this.minuteFrom);
-    }
-}
-
-class ScheduleAppConfigs {
-    constructor(dayNames, timeFrom, timeTo) {
-        this.dayNames = dayNames || ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
-        this.timeFrom = timeFrom || 8;
-        this.timeTo = timeTo || 16;
     }
 }
 
@@ -260,11 +233,11 @@ class JadwalKuliah {
     }
 }
 
-const daftarKelas = [
+const daftarMataKuliah = [
     {
         kode: "1604A021",
         nama: "PEMROGRAMAN BERORIENTASI OBJEK",
-        kelasParalel: [
+        kelas: [
             {
                 kode: "A",
                 jadwal: [
