@@ -259,3 +259,6 @@ class ScheduleApp {
         });
     }
 }
+
+class JadwalKuliah {
+}
