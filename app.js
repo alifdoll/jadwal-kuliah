@@ -73,7 +73,7 @@ class ScheduleApp {
         this.courses = courses;
         this.configs = configs;
 
-        this.courses.forEach((course) => { 
+        this.courses.forEach((course) => {
             JadwalKuliah.sortClasses(course, this.configs.dayNames);
         });
 
@@ -113,7 +113,7 @@ class ScheduleApp {
         this.scheduleTable.createTBody();
         for (let i = configs.timeFrom; i <= configs.timeTo; i++) {
             const tr = this.scheduleTable.tBodies[0].insertRow();
-            for (let i = 0; i <= this.configs.dayNames.length; i++) { 
+            for (let i = 0; i <= this.configs.dayNames.length; i++) {
                 tr.insertCell();
             }
             tr.firstChild.textContent = JadwalKuliah.totalMinuteToTime(i * 60);
@@ -180,10 +180,10 @@ class ScheduleApp {
 
     updateScheduleTable() {
         this.scheduleTable.tHead.rows[0].cells[0].textContent = `Kamu telah memilih ${this.selectedClassXids.length}/${this.courses.length} kelas`;
-        this.scheduleTable.tBodies[0].querySelectorAll('.schedule').forEach((el) => { 
+        this.scheduleTable.tBodies[0].querySelectorAll('.schedule').forEach((el) => {
             el.remove();
         });
-        this.selectedClassXids.forEach((xid) => { 
+        this.selectedClassXids.forEach((xid) => {
             this.drawSchedule(xid);
         });
     }
@@ -227,7 +227,7 @@ class JadwalKuliah {
                     for (let j = 0; j < course.classes[i].schedules.length - 1; j++) {
                         const s0 = course.classes[i].schedules[j];
                         const s1 = course.classes[i].schedules[j + 1];
-                        if (dayNames.indexOf(s0.day) > dayNames.indexOf(s1.day)) {;
+                        if (dayNames.indexOf(s0.day) > dayNames.indexOf(s1.day)) {
                             const t = s1;
                             course.classes[i].schedules[j + 1] = s0;
                             course.classes[i].schedules[j] = t;
@@ -259,3 +259,22 @@ class JadwalKuliah {
         return new Xid(string.substring(0, string.indexOf(':')), string.substring(string.indexOf(':') + 1));
     }
 }
+
+const daftarKelas = [
+    {
+        kode: "1604A021",
+        nama: "PEMROGRAMAN BERORIENTASI OBJEK",
+        kelasParalel: [
+            {
+                kode: "A",
+                jadwal: [
+                    {
+                        hari: "Senin",
+                        jamMulai: "07.00",
+                        jamBerakhir: "09.45"
+                    }
+                ]
+            }
+        ]
+    }
+]
