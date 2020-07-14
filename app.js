@@ -29,7 +29,7 @@ class Schedule {
             ' ' +
             JadwalKuliah.totalMinuteToTime(this.minuteFrom) +
             '-' +
-            JadwalKuliah.totalMinuteToTime(this.minuteTo)
+            JadwalKuliah.totalMinuteToTime(this.minuteTo);
     }
 
     overlap(schedule) {
@@ -96,18 +96,16 @@ class ScheduleApp {
                 classDiv.classList.add('class');
                 classDiv.addEventListener('click', () => {
                     this.toggleClass(JadwalKuliah.parseToXid(classDiv.getAttribute(this._attrXid)));
-                })
+                });
                 classDiv.appendChild(document.createElement('p')).textContent = `KP ${item.code} (Kuota ${item.quota})`;
                 classDiv.setAttribute(this._attrXid, (new Xid(course.code, item.code)).xid());
                 item.schedules.forEach((schedule) => {
                     classDiv.appendChild(document.createElement('p')).textContent = schedule.toText();
                 });
-            })
+            });
         });
 
-        this.scheduleTable.createTHead().insertRow()
-            .appendChild(document.createElement('th'))
-            .setAttribute('colspan', (this.configs.dayNames.length + 1).toString());
+        this.scheduleTable.createTHead().insertRow().appendChild(document.createElement('th')).setAttribute('colspan', (this.configs.dayNames.length + 1).toString());
         this.scheduleTable.tHead.insertRow().appendChild(document.createElement('th')).textContent = 'Waktu';
         this.configs.dayNames.forEach((dayName) => {
             this.scheduleTable.tHead.rows[1].appendChild(document.createElement('th')).textContent = dayName;
@@ -165,7 +163,7 @@ class ScheduleApp {
                                     overlapText.style.marginTop = `calc(-1px + 8px - ${classDiv.clientHeight}px)`;
                                 }
                             }
-                        })
+                        });
                     });
                 });
             }
@@ -184,7 +182,7 @@ class ScheduleApp {
         this.scheduleTable.tHead.rows[0].cells[0].textContent = `Kamu telah memilih ${this.selectedClassXids.length}/${this.courses.length} kelas`;
         this.scheduleTable.tBodies[0].querySelectorAll('.schedule').forEach((el) => { 
             el.remove();
-        })
+        });
         this.selectedClassXids.forEach((xid) => { 
             this.drawSchedule(xid);
         });
