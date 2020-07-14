@@ -1,12 +1,4 @@
 class Course {
-    /**
-     * @param {Number} id
-     * @param {String} name
-     * @param {String} code
-     * @param {Number} credits
-     * @param {String} exam
-     * @param {Class[]} classes
-     */
     constructor(id, name, code, credits, exam, classes) {
         this.id = id
         this.name = name
@@ -16,10 +8,6 @@ class Course {
         this.classes = classes
     }
 
-    /**
-    * @param {Course} course
-    * @param {String[]} dayNames
-    */
     static sortClasses(course, dayNames) {
         let sorted0
         do {
@@ -54,11 +42,6 @@ class Course {
 }
 
 class Class {
-    /**
-     * @param {String} code
-     * @param {Number} quota
-     * @param {Schedule[]} schedules
-     */
     constructor(code, quota, schedules) {
         this.code = code
         this.quota = quota
@@ -67,11 +50,6 @@ class Class {
 }
 
 class Schedule {
-    /**
-     * @param {String} day
-     * @param {Number} minuteFrom
-     * @param {Number} minuteTo
-     */
     constructor(day, minuteFrom, minuteTo) {
         this.day = day
         this.minuteFrom = minuteFrom
@@ -86,13 +64,11 @@ class Schedule {
             Schedule.totalMinuteToTime(this.minuteTo)
     }
 
-    /** @param {Schedule} schedule */
     overlap(schedule) {
         if (this.day !== schedule.day) return false
         return (schedule.minuteFrom >= this.minuteFrom) ? (schedule.minuteFrom < this.minuteTo) : (schedule.minuteTo > this.minuteFrom)
     }
 
-    /** @param {String} string */
     static parse(string) {
         return new Schedule(
             string.substring(0, string.indexOf(' ')),
@@ -101,13 +77,11 @@ class Schedule {
         )
     }
 
-    /** @param {String} string */
     static timeToTotalMinute(string) {
         return Number.parseInt(string.substring(0, string.indexOf('.'))) * 60 +
             Number.parseInt(string.substring(string.indexOf('.') + 1))
     }
 
-    /** @param {Number} totalMinute */
     static totalMinuteToTime(totalMinute) {
         return Number.parseInt(totalMinute / 60).toString().padStart(2, '0') +
             '.' +
@@ -116,11 +90,6 @@ class Schedule {
 }
 
 class ScheduleAppConfigs {
-    /**
-     * @param {String[]} dayNames
-     * @param {Number} timeFrom
-     * @param {Number} timeTo
-     */
     constructor(dayNames, timeFrom, timeTo) {
         this.dayNames = dayNames || ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat']
         this.timeFrom = timeFrom || 8
@@ -129,10 +98,6 @@ class ScheduleAppConfigs {
 }
 
 class Xid {
-    /**
-     * @param {String} courseCode
-     * @param {String} classCode
-     */
     constructor(courseCode, classCode) {
         this.courseCode = courseCode
         this.classCode = classCode
@@ -142,7 +107,6 @@ class Xid {
         return `${this.courseCode}:${this.classCode}`
     }
 
-    /** @param {String} string */
     static parse(string) {
         return new Xid(string.substring(0, string.indexOf(':')), string.substring(string.indexOf(':') + 1))
     }
@@ -153,19 +117,11 @@ class ScheduleApp {
     _attrSelectedXid = 'data-selected-xid'
     _attrOverlapXid = 'data-overlap-xid'
 
-    /** @type {Course[]} */
     courses = []
-    /** @type {Xid[]} */
     selectedClassXids = []
 
     courseTableHeaderTexts = ['ID', 'Nama', 'Kode', 'Kredit', 'Ujian', 'KP']
 
-    /**
-     * @param {HTMLTableElement} courseTable
-     * @param {HTMLTableElement} scheduleTable
-     * @param {Course[]} courses
-     * @param {ScheduleAppConfigs} configs
-     */
     constructor(courseTable, scheduleTable, courses, configs) {
         this.courseTable = courseTable
         this.scheduleTable = scheduleTable
@@ -218,7 +174,6 @@ class ScheduleApp {
         this.updateScheduleTable()
     }
 
-    /** @param {Xid} xid */
     toggleClass(xid) {
         const classDiv = this.courseTable.querySelector(`.class[${this._attrXid}='${xid.xid()}']`)
         if (classDiv.getAttribute(this._attrOverlapXid) !== null) return
@@ -241,7 +196,6 @@ class ScheduleApp {
         this.updateScheduleTable()
     }
 
-    /** @param {Xid} xid */
     selectClass(xid) {
         this.selectedClassXids.push(xid)
         const selectedCourse = this.courses.find((course) => course.code === xid.courseCode)
@@ -269,7 +223,6 @@ class ScheduleApp {
         })
     }
 
-    /** @param {Xid} xid */
     unselectClass(xid) {
         this.selectedClassXids = this.selectedClassXids.filter((item) => item.xid() !== xid.xid())
         this.courseTable.querySelectorAll(`.class[${this._attrOverlapXid}='${xid.xid()}']`).forEach((el) => {
@@ -284,7 +237,6 @@ class ScheduleApp {
         this.selectedClassXids.forEach((xid) => { this.drawSchedule(xid) })
     }
 
-    /** @param {Xid} xid */
     drawSchedule(xid) {
         const course = this.courses.find((item) => item.code === xid.courseCode)
         course.classes.find((item) => item.code === xid.classCode).schedules.forEach((schedule) => {
