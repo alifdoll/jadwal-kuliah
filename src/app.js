@@ -1,5 +1,5 @@
 class JadwalKuliah {
-    static _hari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
+    static daftarHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
 
     static stringJadwal(jadwal) {
         return `${jadwal.hari}, ${jadwal.jamMulai} - ${jadwal.jamBerakhir}`;
@@ -44,6 +44,8 @@ class JadwalKuliah {
     }
 
     constructor(tabelMataKuliah, tabelJadwal, daftarMataKuliah) {
+        this.jumlahKelasTerpilih = 0;
+
         this.tabelMataKuliah = tabelMataKuliah;
         this.tabelJadwal = tabelJadwal;
         this.daftarMataKuliah = daftarMataKuliah;
@@ -115,17 +117,19 @@ class JadwalKuliah {
         });
 
         this.tabelJadwal.createTHead();
+        this.tabelJadwal.tHead.insertRow().appendChild(document.createElement('th')).colSpan =
+            JadwalKuliah.daftarHari.length + 1;
         this.tabelJadwal.tHead.insertRow().appendChild(document.createElement('th')).textContent =
             'Waktu';
-        JadwalKuliah._hari.forEach((hari) => {
-            this.tabelJadwal.tHead.rows[0].appendChild(document.createElement('th')).textContent =
+        JadwalKuliah.daftarHari.forEach((hari) => {
+            this.tabelJadwal.tHead.rows[1].appendChild(document.createElement('th')).textContent =
                 hari;
         });
 
         this.tabelJadwal.createTBody();
         for (let i = this.batasAwalWaktu; i <= this.batasAkhirWaktu; i++) {
             const baris = this.tabelJadwal.tBodies[0].insertRow();
-            for (let i = 0; i <= JadwalKuliah._hari.length; i++) {
+            for (let i = 0; i <= JadwalKuliah.daftarHari.length; i++) {
                 baris.insertCell();
             }
             baris.firstChild.textContent = JadwalKuliah.totalMenitKeStringWaktu(i * 60);
@@ -152,9 +156,14 @@ class JadwalKuliah {
             }
             this.pilihKelas(kodeMataKuliah, kodeKelas);
         }
+
+        this.tabelJadwal.tHead.rows[0].firstChild.textContent =
+            `${this.jumlahKelasTerpilih}/${this.daftarMataKuliah.length} mata kuliah terpilih`;
     }
 
     pilihKelas(kodeMataKuliah, kodeKelas) {
+        this.jumlahKelasTerpilih++;
+
         const divKelas = this.dapatkanDivKelas(kodeMataKuliah, kodeKelas);
         divKelas.classList.add('kelas--terpilih');
         divKelas.parentElement.parentElement.parentElement.setAttribute(
@@ -179,7 +188,9 @@ class JadwalKuliah {
                                 kelas.jadwal[i],
                                 kelasDipilih.jadwal[j]
                             )) {
-                                const divKelas = this.dapatkanDivKelas(mataKuliah.kode, kelas.kode);
+                                const divKelas = this.dapatkanDivKelas(
+                                    mataKuliah.kode, kelas.kode
+                                );
                                 divKelas.setAttribute(
                                     'data-bertabrakan-mata-kuliah',
                                     kodeMataKuliah
@@ -193,7 +204,8 @@ class JadwalKuliah {
                                     mataKuliahDipilih, kodeKelas, j
                                 );
                                 elementPesan.style.marginLeft = 'calc(-1px - 8px)';
-                                elementPesan.style.marginTop = `calc(-1px + 8px - ${divKelas.clientHeight}px)`;
+                                elementPesan.style.marginTop =
+                                    `calc(-1px + 8px - ${divKelas.clientHeight}px)`;
                                 break;
                             }
                         }
@@ -208,7 +220,7 @@ class JadwalKuliah {
             const perbedaanWaktu = menitJamBerakhir - menitJamMulai;
 
             const divJadwal = this.tabelJadwal.tBodies[0].querySelector(
-                `tr:nth-child(${Number.parseInt(menitJamMulai / 60) - this.batasAwalWaktu + 1})>td:nth-child(${JadwalKuliah._hari.indexOf(jadwal.hari) + 2})`
+                `tr:nth-child(${Number.parseInt(menitJamMulai / 60) - this.batasAwalWaktu + 1})>td:nth-child(${JadwalKuliah.daftarHari.indexOf(jadwal.hari) + 2})`
             ).appendChild(document.createElement('div'));
             divJadwal.classList.add('jadwal');
             divJadwal.style.height =
@@ -228,6 +240,8 @@ class JadwalKuliah {
     }
 
     batalPilihKelas(kodeMataKuliah, kodeKelas) {
+        this.jumlahKelasTerpilih--;
+
         const divKelas = this.dapatkanDivKelas(kodeMataKuliah, kodeKelas);
         divKelas.classList.remove('kelas--terpilih');
         divKelas.parentElement.parentElement.parentElement.setAttribute(
