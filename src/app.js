@@ -167,7 +167,7 @@ class JadwalKuliah {
         const divKelas = this.dapatkanDivKelas(kodeMataKuliah, kodeKelas);
         divKelas.classList.add('kelas--terpilih');
         divKelas.parentElement.parentElement.parentElement.setAttribute(
-            'data-kelas-sudah-dipilih', true
+            'data-mata-kuliah-terpilih', true
         );
         divKelas.parentElement.setAttribute('data-kelas-dipilih', kodeKelas);
 
@@ -245,7 +245,7 @@ class JadwalKuliah {
         const divKelas = this.dapatkanDivKelas(kodeMataKuliah, kodeKelas);
         divKelas.classList.remove('kelas--terpilih');
         divKelas.parentElement.parentElement.parentElement.setAttribute(
-            'data-kelas-sudah-dipilih', false
+            'data-mata-kuliah-terpilih', false
         );
         divKelas.parentElement.removeAttribute('data-kelas-dipilih');
 
