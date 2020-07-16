@@ -2,16 +2,16 @@
 
 :root {
   --border: 1px solid #212121;
-  --tr-terpilih-background-color: #e5f3eb;
+  --tr-terpilih-background-color: #fafafa;
   --kelas-background-color: #ffffff;
-  --kelas-hover-background-color: #b1dcdb;
-  --kelas-terpilih-background-color: #7fc6c4;
-  --kelas-terpilih-hover-background-color: #cf848b;
-  --kelas-bertabrakan-background-color: #f5f5f5;
-  --kelas-pesan-bertabrakan-background-color: #da6b72;
+  --kelas-hover-background-color: #b3e5fc;
+  --kelas-terpilih-background-color: #4fc3f7;
+  --kelas-terpilih-hover-background-color: #e57373;
+  --kelas-bertabrakan-background-color: #ffcdd2;
+  --kelas-pesan-bertabrakan-background-color: #f44336;
   --kelas-pesan-bertabrakan-color: #212121;
   --tabel-jadwal-border-color: #f5f5f5;
-  --jadwal-background-color: #62a0cd;
+  --jadwal-background-color: #4fc3f7;
 }
 
 body {
