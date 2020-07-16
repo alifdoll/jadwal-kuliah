@@ -157,6 +157,9 @@ class JadwalKuliah {
     pilihKelas(kodeMataKuliah, kodeKelas) {
         const divKelas = this.dapatkanDivKelas(kodeMataKuliah, kodeKelas);
         divKelas.classList.add('kelas--terpilih');
+        divKelas.parentElement.parentElement.parentElement.setAttribute(
+            'data-kelas-sudah-dipilih', true
+        );
         divKelas.parentElement.setAttribute('data-kelas-dipilih', kodeKelas);
 
         const mataKuliahDipilih = this.daftarMataKuliah.find((mataKuliah) =>
@@ -227,6 +230,9 @@ class JadwalKuliah {
     batalPilihKelas(kodeMataKuliah, kodeKelas) {
         const divKelas = this.dapatkanDivKelas(kodeMataKuliah, kodeKelas);
         divKelas.classList.remove('kelas--terpilih');
+        divKelas.parentElement.parentElement.parentElement.setAttribute(
+            'data-kelas-sudah-dipilih', false
+        );
         divKelas.parentElement.removeAttribute('data-kelas-dipilih');
 
         this.tabelMataKuliah

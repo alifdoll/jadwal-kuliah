@@ -2,7 +2,7 @@
 
 :root {
   --border: 1px solid #212121;
-  --tr-terpilih-background-color: #fafafa;
+  --kelas-sudah-dipilih-background-color: #fafafa;
   --kelas-background-color: #ffffff;
   --kelas-hover-background-color: #b3e5fc;
   --kelas-terpilih-background-color: #4fc3f7;
@@ -34,6 +34,10 @@ td {
 .tabel-mata-kuliah,
 .tabel-jadwal {
   text-align: center;
+}
+
+.tabel-mata-kuliah tr[data-kelas-sudah-dipilih="true"] {
+  background-color: var(--kelas-sudah-dipilih-background-color);
 }
 
 .tabel-mata-kuliah .container-kelas {
