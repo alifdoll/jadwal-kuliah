@@ -25,11 +25,7 @@ class JadwalKuliah {
         const jamMulaiJadwal2 = JadwalKuliah.stringWaktuKeTotalMenit(jadwal2.jamMulai);
         const jamBerakhirJadwal2 = JadwalKuliah.stringWaktuKeTotalMenit(jadwal2.jamBerakhir);
 
-        if (jamBerakhirJadwal2 > jamMulaiJadwal1 && jamBerakhirJadwal2 <= jamBerakhirJadwal1)
-            return true;
-        if (jamMulaiJadwal2 >= jamMulaiJadwal1 && jamBerakhirJadwal2 < jamBerakhirJadwal1)
-            return true;
-        return false;
+        return !(jamBerakhirJadwal2 <= jamMulaiJadwal1 ? true : jamMulaiJadwal2 >= jamBerakhirJadwal1);
     }
 
     static pesanJadwalBertabrakan(mataKuliah, kodeKelas, indexJadwal) {
