@@ -233,7 +233,9 @@ class JadwalKuliah {
             const divInformasiJadwal = divJadwal.appendChild(document.createElement('div'));
             divInformasiJadwal.classList.add('detail-jadwal');
             divInformasiJadwal.appendChild(document.createElement('p')).textContent =
-                `${mataKuliahDipilih.nama} (Kelas ${kodeKelas})`;
+                mataKuliahDipilih.nama;
+            divInformasiJadwal.appendChild(document.createElement('p')).textContent =
+                `Kelas ${kodeKelas}`;
             divInformasiJadwal.appendChild(document.createElement('p')).textContent =
                 `${jadwal.jamMulai} - ${jadwal.jamBerakhir}`;
         });
