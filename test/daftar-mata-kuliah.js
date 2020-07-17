@@ -8,13 +8,13 @@ const daftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '06.00',
-                        jamBerakhir: '08.00'
+                        waktuMulai: '06.00',
+                        waktuBerakhir: '08.00'
                     },
                     {
                         hari: 'Selasa',
-                        jamMulai: '10.00',
-                        jamBerakhir: '12.00'
+                        waktuMulai: '10.00',
+                        waktuBerakhir: '12.00'
                     }
                 ]
             }
@@ -29,8 +29,8 @@ const daftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '07.00',
-                        jamBerakhir: '09.00'
+                        waktuMulai: '07.00',
+                        waktuBerakhir: '09.00'
                     }
                 ]
             }
@@ -45,8 +45,8 @@ const daftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Selasa',
-                        jamMulai: '09.00',
-                        jamBerakhir: '11.00'
+                        waktuMulai: '09.00',
+                        waktuBerakhir: '11.00'
                     }
                 ]
             }

@@ -2,14 +2,14 @@
 
 :root {
   --border: 1px solid #212121;
-  --mata-kuliah-terpilih-background-color: #fafafa;
+  --tr-kelas-telah-dipilih-background-color: #fafafa;
   --kelas-background-color: #ffffff;
   --kelas-hover-background-color: #b3e5fc;
-  --kelas-terpilih-background-color: #4fc3f7;
-  --kelas-terpilih-hover-background-color: #e57373;
+  --kelas-dipilih-background-color: #4fc3f7;
+  --kelas-dipilih-hover-background-color: #e57373;
   --kelas-bertabrakan-background-color: #ffcdd2;
-  --kelas-pesan-bertabrakan-background-color: #f44336;
-  --kelas-pesan-bertabrakan-color: #212121;
+  --daftar-kelas-bertabrakan-background-color: #f44336;
+  --kelas-bertabrakan-color: #212121;
   --tabel-jadwal-border-color: #f5f5f5;
   --jadwal-background-color: #4fc3f7;
 }
@@ -23,21 +23,23 @@ body > * {
 }
 
 .tabel-mata-kuliah,
+.tabel-jadwal {
+  text-align: center;
+}
+
+.tabel-mata-kuliah,
+.tabel-mata-kuliah th,
+.tabel-mata-kuliah td,
 .tabel-jadwal,
-th,
-td {
+.tabel-jadwal th,
+.tabel-jadwal td {
   border: var(--border);
   border-collapse: collapse;
   padding: 0.5rem;
 }
 
-.tabel-mata-kuliah,
-.tabel-jadwal {
-  text-align: center;
-}
-
-.tabel-mata-kuliah tr[data-mata-kuliah-terpilih="true"] {
-  background-color: var(--mata-kuliah-terpilih-background-color);
+.tabel-mata-kuliah .tr--kelas-telah-dipilih {
+  background-color: var(--tr-kelas-telah-dipilih-background-color);
 }
 
 .tabel-mata-kuliah .container-kelas {
@@ -63,29 +65,29 @@ td {
   cursor: pointer;
 }
 
-.tabel-mata-kuliah .kelas--terpilih {
-  background-color: var(--kelas-terpilih-background-color);
+.tabel-mata-kuliah .kelas--dipilih {
+  background-color: var(--kelas-dipilih-background-color);
 }
 
-.tabel-mata-kuliah .kelas--terpilih:hover {
-  background-color: var(--kelas-terpilih-hover-background-color);
+.tabel-mata-kuliah .kelas--dipilih:hover {
+  background-color: var(--kelas-dipilih-hover-background-color);
 }
 
-.tabel-mata-kuliah .kelas[data-bertabrakan-mata-kuliah] {
+.tabel-mata-kuliah .kelas[data-kelas-bertabrakan="true"] {
   background-color: var(--kelas-bertabrakan-background-color);
 }
 
-.tabel-mata-kuliah .kelas[data-bertabrakan-mata-kuliah]:hover {
+.tabel-mata-kuliah .kelas[data-kelas-bertabrakan="true"]:hover {
   background-color: var(--kelas-bertabrakan-background-color);
   cursor: default;
 }
 
-.tabel-mata-kuliah .kelas__pesan-bertabrakan {
-  background-color: var(--kelas-pesan-bertabrakan-background-color);
+.tabel-mata-kuliah .kelas__kelas-bertabrakan {
+  background-color: var(--daftar-kelas-bertabrakan-background-color);
   border: var(--border);
-  color: var(--kelas-pesan-bertabrakan-color);
+  color: var(--kelas-bertabrakan-color);
   font-size: 0.8em;
-  margin: 0;
+  margin: 0 0 0 calc(-1px - 8px);
   opacity: 0;
   padding: 0.5rem;
   position: absolute;
@@ -94,7 +96,13 @@ td {
   width: 12rem;
 }
 
-.tabel-mata-kuliah .kelas__pesan-bertabrakan:hover {
+.tabel-mata-kuliah .kelas__kelas-bertabrakan::before {
+  content: "Bertabrakan dengan:";
+}
+
+.tabel-mata-kuliah
+  .kelas[data-kelas-bertabrakan="true"]
+  .kelas__kelas-bertabrakan:hover {
   opacity: 1;
 }
 
@@ -110,7 +118,12 @@ td {
   margin-bottom: 0.5em;
 }
 
-.tabel-jadwal thead tr th:not(:first-child) {
+.tabel-mata-kuliah .kelas__kelas-bertabrakan li {
+  list-style: none;
+  margin-top: 0.5rem;
+}
+
+.tabel-jadwal th:not(:first-child) {
   width: 10rem;
 }
 
@@ -138,17 +151,17 @@ td {
   width: 11rem;
 }
 
-.tabel-jadwal .detail-jadwal {
+.tabel-jadwal .jadwal__detail {
   font-size: 0.8em;
   padding: 0.5rem;
   text-align: start;
 }
 
-.tabel-jadwal .detail-jadwal p {
+.tabel-jadwal .jadwal__detail p {
   margin: 0;
 }
 
-.tabel-jadwal .detail-jadwal p:first-child {
+.tabel-jadwal .jadwal__detail p:first-child {
   font-weight: bold;
   margin-bottom: 0.4em;
 }

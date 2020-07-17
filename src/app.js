@@ -1,8 +1,8 @@
 class JadwalKuliah {
     static daftarHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
 
-    static stringJadwal(jadwal) {
-        return `${jadwal.hari}, ${jadwal.jamMulai} - ${jadwal.jamBerakhir}`;
+    static jadwalKeString(jadwal) {
+        return `${jadwal.hari}, ${jadwal.waktuMulai} - ${jadwal.waktuBerakhir}`;
     }
 
     static stringWaktuKeTotalMenit(stringWaktu) {
@@ -17,57 +17,41 @@ class JadwalKuliah {
         return `${jam}.${menit}`;
     }
 
-    static cekJadwalBertabrakan(jadwal1, jadwal2) {
+    static jadwalBertabrakan(jadwal1, jadwal2) {
         if (jadwal1.hari !== jadwal2.hari) return false;
-
-        const jamMulaiJadwal1 = JadwalKuliah.stringWaktuKeTotalMenit(jadwal1.jamMulai);
-        const jamBerakhirJadwal1 = JadwalKuliah.stringWaktuKeTotalMenit(jadwal1.jamBerakhir);
-        const jamMulaiJadwal2 = JadwalKuliah.stringWaktuKeTotalMenit(jadwal2.jamMulai);
-        const jamBerakhirJadwal2 = JadwalKuliah.stringWaktuKeTotalMenit(jadwal2.jamBerakhir);
-
-        return !(jamBerakhirJadwal2 <= jamMulaiJadwal1 ? true : jamMulaiJadwal2 >= jamBerakhirJadwal1);
-    }
-
-    static pesanJadwalBertabrakan(mataKuliah, kodeKelas, indexJadwal) {
-        const kelas = mataKuliah.kelas.find((kelas) =>
-            kelas.kode === kodeKelas
-        );
-        let pesan = 'Bertabrakan dengan ';
-        pesan += `<b>${mataKuliah.nama} (Kelas ${kodeKelas})</b> `;
-        pesan += 'pada ';
-        pesan += `<b>${JadwalKuliah.stringJadwal(kelas.jadwal[indexJadwal])}</b>`;
-        return pesan;
+        const waktuMulaiJadwal1 = JadwalKuliah.stringWaktuKeTotalMenit(jadwal1.waktuMulai);
+        const waktuBerakhirJadwal1 = JadwalKuliah.stringWaktuKeTotalMenit(jadwal1.waktuBerakhir);
+        const waktuMulaiJadwal2 = JadwalKuliah.stringWaktuKeTotalMenit(jadwal2.waktuMulai);
+        const waktuBerakhirJadwal2 = JadwalKuliah.stringWaktuKeTotalMenit(jadwal2.waktuBerakhir);
+        return !(waktuBerakhirJadwal2 <= waktuMulaiJadwal1 ? true : waktuMulaiJadwal2 >= waktuBerakhirJadwal1);
     }
 
     constructor(tabelMataKuliah, tabelJadwal, daftarMataKuliah) {
-        this.jumlahKelasTerpilih = 0;
-
         this.tabelMataKuliah = tabelMataKuliah;
         this.tabelJadwal = tabelJadwal;
         this.daftarMataKuliah = daftarMataKuliah;
+        this.jumlahKelasDipilih = 0;
 
         this.batasAwalWaktu = JadwalKuliah.stringWaktuKeTotalMenit(
-            daftarMataKuliah[0].kelas[0].jadwal[0].jamMulai
+            this.daftarMataKuliah[0].kelas[0].jadwal[0].waktuMulai
         );
         this.batasAkhirWaktu = JadwalKuliah.stringWaktuKeTotalMenit(
-            daftarMataKuliah[0].kelas[0].jadwal[0].jamBerakhir
+            this.daftarMataKuliah[0].kelas[0].jadwal[0].waktuBerakhir
         );
-
-        daftarMataKuliah.forEach((mataKuliah) => {
+        this.daftarMataKuliah.forEach((mataKuliah) => {
             mataKuliah.kelas.forEach((kelas) => {
                 kelas.jadwal.forEach((jadwal) => {
-                    let totalMenitJamMulai = JadwalKuliah.stringWaktuKeTotalMenit(
-                        jadwal.jamMulai
+                    let totalMenitwaktuMulai = JadwalKuliah.stringWaktuKeTotalMenit(
+                        jadwal.waktuMulai
                     );
-                    if (totalMenitJamMulai < this.batasAwalWaktu) {
-                        this.batasAwalWaktu = totalMenitJamMulai;
+                    if (totalMenitwaktuMulai < this.batasAwalWaktu) {
+                        this.batasAwalWaktu = totalMenitwaktuMulai;
                     }
-
-                    let totalMenitJamBerakhir = JadwalKuliah.stringWaktuKeTotalMenit(
-                        jadwal.jamBerakhir
+                    let totalMenitwaktuBerakhir = JadwalKuliah.stringWaktuKeTotalMenit(
+                        jadwal.waktuBerakhir
                     );
-                    if (totalMenitJamBerakhir > this.batasAkhirWaktu) {
-                        this.batasAkhirWaktu = totalMenitJamBerakhir;
+                    if (totalMenitwaktuBerakhir > this.batasAkhirWaktu) {
+                        this.batasAkhirWaktu = totalMenitwaktuBerakhir;
                     }
                 });
             });
@@ -89,14 +73,14 @@ class JadwalKuliah {
 
         this.tabelMataKuliah.createTBody();
         this.daftarMataKuliah.forEach((mataKuliah) => {
-            const baris = this.tabelMataKuliah.tBodies[0].insertRow();
-            baris.insertCell().textContent = mataKuliah.kode;
-            baris.insertCell().textContent = mataKuliah.nama;
-            const divContainerKelas = baris.insertCell().appendChild(
+            const row = this.tabelMataKuliah.tBodies[0].insertRow();
+            row.insertCell().textContent = mataKuliah.kode;
+            row.insertCell().textContent = mataKuliah.nama;
+            const divContainerKelas = row.insertCell().appendChild(
                 document.createElement('div')
             );
             divContainerKelas.classList.add('container-kelas');
-            divContainerKelas.setAttribute('data-mata-kuliah', mataKuliah.kode);
+            divContainerKelas.setAttribute('data-kode-mata-kuliah', mataKuliah.kode);
             mataKuliah.kelas.forEach((kelas) => {
                 const divKelas = divContainerKelas.appendChild(document.createElement('div'));
                 divKelas.classList.add('kelas');
@@ -104,11 +88,15 @@ class JadwalKuliah {
                     this.clickKelas(mataKuliah.kode, kelas.kode);
                 });
                 divKelas.appendChild(document.createElement('p')).textContent = kelas.kode;
-                divKelas.setAttribute('data-kelas', kelas.kode);
+                divKelas.setAttribute('data-kode-kelas', kelas.kode);
                 kelas.jadwal.forEach((jadwal) => {
                     divKelas.appendChild(document.createElement('p')).textContent =
-                        JadwalKuliah.stringJadwal(jadwal);
+                        JadwalKuliah.jadwalKeString(jadwal);
                 });
+                const ulKelasBertabrakan = divKelas.appendChild(document.createElement('ul'));
+                ulKelasBertabrakan.classList.add('kelas__kelas-bertabrakan');
+                ulKelasBertabrakan.style.marginTop =
+                    `calc(-1px + 8px - ${divKelas.clientHeight}px)`;
             });
         });
 
@@ -124,142 +112,145 @@ class JadwalKuliah {
 
         this.tabelJadwal.createTBody();
         for (let i = this.batasAwalWaktu; i <= this.batasAkhirWaktu; i++) {
-            const baris = this.tabelJadwal.tBodies[0].insertRow();
+            const row = this.tabelJadwal.tBodies[0].insertRow();
             for (let i = 0; i <= JadwalKuliah.daftarHari.length; i++) {
-                baris.insertCell();
+                row.insertCell();
             }
-            baris.firstChild.textContent = JadwalKuliah.totalMenitKeStringWaktu(i * 60);
+            row.firstChild.textContent = JadwalKuliah.totalMenitKeStringWaktu(i * 60);
         }
     }
 
-    dapatkanDivKelas(kodeMataKuliah, kodeKelas) {
+    divKelas(kodeMataKuliah, kodeKelas) {
         return this.tabelMataKuliah.querySelector(
-            `.container-kelas[data-mata-kuliah='${kodeMataKuliah}'] > .kelas[data-kelas='${kodeKelas}']`
+            `.container-kelas[data-kode-mata-kuliah='${kodeMataKuliah}'] .kelas[data-kode-kelas='${kodeKelas}']`
         );
     }
 
     clickKelas(kodeMataKuliah, kodeKelas) {
-        const divKelas = this.dapatkanDivKelas(kodeMataKuliah, kodeKelas);
-        if (divKelas.getAttribute('data-bertabrakan-mata-kuliah')) return;
-        const kodeKelasTerpilihSebelumnya = divKelas.parentElement.getAttribute(
-            'data-kelas-dipilih'
-        );
-        if (kodeKelasTerpilihSebelumnya === kodeKelas) {
+        const divKelas = this.divKelas(kodeMataKuliah, kodeKelas);
+        if (divKelas.getAttribute('data-kelas-bertabrakan') === 'true') return;
+        let kodeKelasDipilihSebelumnya = divKelas.parentElement.getAttribute('data-kode-kelas-dipilih');
+        if (kodeKelasDipilihSebelumnya === kodeKelas) {
             this.batalPilihKelas(kodeMataKuliah, kodeKelas);
         } else {
-            if (kodeKelasTerpilihSebelumnya) {
-                this.batalPilihKelas(kodeMataKuliah, kodeKelasTerpilihSebelumnya);
+            if (kodeKelasDipilihSebelumnya) {
+                this.batalPilihKelas(kodeMataKuliah, kodeKelasDipilihSebelumnya);
             }
             this.pilihKelas(kodeMataKuliah, kodeKelas);
         }
 
         this.tabelJadwal.tHead.rows[0].firstChild.textContent =
-            `${this.jumlahKelasTerpilih}/${this.daftarMataKuliah.length} mata kuliah terpilih`;
+            `Terpilih ${this.jumlahKelasDipilih}/${this.daftarMataKuliah.length} kelas`;
     }
 
     pilihKelas(kodeMataKuliah, kodeKelas) {
-        this.jumlahKelasTerpilih++;
+        this.jumlahKelasDipilih++;
 
-        const divKelas = this.dapatkanDivKelas(kodeMataKuliah, kodeKelas);
-        divKelas.classList.add('kelas--terpilih');
-        divKelas.parentElement.parentElement.parentElement.setAttribute(
-            'data-mata-kuliah-terpilih', true
-        );
-        divKelas.parentElement.setAttribute('data-kelas-dipilih', kodeKelas);
-
+        const daftarKelasBertabrakan = [];
         const mataKuliahDipilih = this.daftarMataKuliah.find((mataKuliah) =>
             mataKuliah.kode === kodeMataKuliah
         );
-
         const kelasDipilih = mataKuliahDipilih.kelas.find((kelas) =>
             kelas.kode === kodeKelas
         );
 
+        const divKelas = this.divKelas(kodeMataKuliah, kodeKelas);
+        divKelas.classList.add('kelas--dipilih');
+        divKelas.parentElement.parentElement.parentElement.classList.add(
+            'tr--kelas-telah-dipilih'
+        );
+        divKelas.parentElement.setAttribute('data-kode-kelas-dipilih', kodeKelas);
+
         this.daftarMataKuliah.forEach((mataKuliah) => {
-            if (mataKuliah.kode !== kodeMataKuliah) {
-                mataKuliah.kelas.forEach((kelas) => {
-                    for (let i = 0; i < kelas.jadwal.length; i++) {
-                        for (let j = 0; j < kelasDipilih.jadwal.length; j++) {
-                            if (JadwalKuliah.cekJadwalBertabrakan(
-                                kelas.jadwal[i],
-                                kelasDipilih.jadwal[j]
-                            )) {
-                                const divKelas = this.dapatkanDivKelas(
-                                    mataKuliah.kode, kelas.kode
-                                );
-                                divKelas.setAttribute(
-                                    'data-bertabrakan-mata-kuliah',
-                                    kodeMataKuliah
-                                );
-                                divKelas.setAttribute('data-bertabrakan-kelas', kodeKelas);
-                                const elementPesan = divKelas.appendChild(
-                                    document.createElement('p')
-                                );
-                                elementPesan.classList.add('kelas__pesan-bertabrakan');
-                                elementPesan.innerHTML = JadwalKuliah.pesanJadwalBertabrakan(
-                                    mataKuliahDipilih, kodeKelas, j
-                                );
-                                elementPesan.style.marginLeft = 'calc(-1px - 8px)';
-                                elementPesan.style.marginTop =
-                                    `calc(-1px + 8px - ${divKelas.clientHeight}px)`;
-                                break;
-                            }
+            if (mataKuliah.kode === kodeMataKuliah) return;
+            mataKuliah.kelas.forEach((kelas) => {
+                for (let i = 0; i < kelas.jadwal.length; i++) {
+                    for (let j = 0; j < kelasDipilih.jadwal.length; j++) {
+                        if (JadwalKuliah.jadwalBertabrakan(
+                            kelas.jadwal[i], kelasDipilih.jadwal[j]
+                        )) {
+                            daftarKelasBertabrakan.push({
+                                kodeMataKuliah: mataKuliah.kode,
+                                kodeKelas: kelas.kode,
+                                indexJadwal: j
+                            });
                         }
                     }
-                });
-            }
+                }
+            });
+        });
+
+        daftarKelasBertabrakan.forEach((kelasBertabrakan) => {
+            const divKelas = this.divKelas(
+                kelasBertabrakan.kodeMataKuliah, kelasBertabrakan.kodeKelas
+            );
+            divKelas.setAttribute('data-kelas-bertabrakan', true);
+            const liPesan = divKelas.querySelector('.kelas__kelas-bertabrakan').appendChild(
+                document.createElement('li')
+            );
+            liPesan.innerHTML =
+                `<b>${mataKuliahDipilih.nama} (Kelas ${kodeKelas})</b> pada <b>${JadwalKuliah.jadwalKeString(kelasDipilih.jadwal[kelasBertabrakan.indexJadwal])}</b>`;
+            liPesan.setAttribute(
+                'data-kode-mata-kuliah-bertabrakan', kodeMataKuliah
+            );
+            liPesan.setAttribute('data-kode-kelas-bertabrakan', kodeKelas);
+            liPesan.setAttribute('data-index-jadwal-bertabrakan', kelasBertabrakan.indexJadwal)
         });
 
         kelasDipilih.jadwal.forEach((jadwal) => {
-            const menitJamMulai = JadwalKuliah.stringWaktuKeTotalMenit(jadwal.jamMulai);
-            const menitJamBerakhir = JadwalKuliah.stringWaktuKeTotalMenit(jadwal.jamBerakhir);
-            const perbedaanWaktu = menitJamBerakhir - menitJamMulai;
+            const menitwaktuMulai = JadwalKuliah.stringWaktuKeTotalMenit(jadwal.waktuMulai);
+            const menitwaktuBerakhir = JadwalKuliah.stringWaktuKeTotalMenit(jadwal.waktuBerakhir);
+            const perbedaanWaktu = menitwaktuBerakhir - menitwaktuMulai;
 
             const divJadwal = this.tabelJadwal.tBodies[0].querySelector(
-                `tr:nth-child(${Number.parseInt(menitJamMulai / 60) - this.batasAwalWaktu + 1})>td:nth-child(${JadwalKuliah.daftarHari.indexOf(jadwal.hari) + 2})`
+                `tr:nth-child(${Number.parseInt(menitwaktuMulai / 60) - this.batasAwalWaktu + 1})>td:nth-child(${JadwalKuliah.daftarHari.indexOf(jadwal.hari) + 2})`
             ).appendChild(document.createElement('div'));
             divJadwal.classList.add('jadwal');
             divJadwal.style.height =
                 `calc(${Number.parseInt(perbedaanWaktu / 60) * 4}rem + ${(perbedaanWaktu % 60) / 60 * 4}rem - 1px)`;
             divJadwal.style.marginTop =
-                `calc(-2rem + ${(menitJamMulai % 60) / 60 * 4}rem + 1px)`;
-            divJadwal.setAttribute('data-mata-kuliah', kodeMataKuliah);
-            divJadwal.setAttribute('data-kelas', kodeKelas);
+                `calc(-2rem + ${(menitwaktuMulai % 60) / 60 * 4}rem + 1px)`;
+            divJadwal.setAttribute('data-kode-mata-kuliah', kodeMataKuliah);
+            divJadwal.setAttribute('data-kode-kelas', kodeKelas);
 
             const divInformasiJadwal = divJadwal.appendChild(document.createElement('div'));
-            divInformasiJadwal.classList.add('detail-jadwal');
+            divInformasiJadwal.classList.add('jadwal__detail');
             divInformasiJadwal.appendChild(document.createElement('p')).textContent =
                 mataKuliahDipilih.nama;
             divInformasiJadwal.appendChild(document.createElement('p')).textContent =
                 `Kelas ${kodeKelas}`;
             divInformasiJadwal.appendChild(document.createElement('p')).textContent =
-                `${jadwal.jamMulai} - ${jadwal.jamBerakhir}`;
+                `${jadwal.waktuMulai} - ${jadwal.waktuBerakhir}`;
         });
     }
 
     batalPilihKelas(kodeMataKuliah, kodeKelas) {
-        this.jumlahKelasTerpilih--;
+        this.jumlahKelasDipilih--;
 
-        const divKelas = this.dapatkanDivKelas(kodeMataKuliah, kodeKelas);
-        divKelas.classList.remove('kelas--terpilih');
-        divKelas.parentElement.parentElement.parentElement.setAttribute(
-            'data-mata-kuliah-terpilih', false
+        const divKelas = this.divKelas(kodeMataKuliah, kodeKelas);
+        divKelas.classList.remove('kelas--dipilih');
+        divKelas.parentElement.removeAttribute('data-kode-kelas-dipilih');
+        divKelas.parentElement.parentElement.parentElement.classList.remove(
+            'tr--kelas-telah-dipilih'
         );
-        divKelas.parentElement.removeAttribute('data-kelas-dipilih');
 
         this.tabelMataKuliah
             .querySelectorAll(
-                `.kelas[data-bertabrakan-mata-kuliah='${kodeMataKuliah}'][data-bertabrakan-kelas='${kodeKelas}']`
-            )
+                `.kelas__kelas-bertabrakan li[data-kode-mata-kuliah-bertabrakan='${kodeMataKuliah}'][data-kode-kelas-bertabrakan='${kodeKelas}']`
+            ).forEach((el) => {
+                el.remove();
+            });
+        this.tabelMataKuliah
+            .querySelectorAll('.kelas__kelas-bertabrakan')
             .forEach((el) => {
-                el.querySelector('.kelas__pesan-bertabrakan').remove();
-                el.removeAttribute('data-bertabrakan-mata-kuliah');
-                el.removeAttribute('data-bertabrakan-kelas');
+                if (el.childElementCount === 0) {
+                    el.parentElement.setAttribute('data-kelas-bertabrakan', false);
+                }
             });
 
         this.tabelJadwal
             .querySelectorAll(
-                `.jadwal[data-mata-kuliah='${kodeMataKuliah}'][data-kelas='${kodeKelas}']`
+                `.jadwal[data-kode-mata-kuliah='${kodeMataKuliah}'][data-kode-kelas='${kodeKelas}']`
             )
             .forEach((el) => {
                 el.remove();
