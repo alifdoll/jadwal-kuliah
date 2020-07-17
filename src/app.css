@@ -111,10 +111,8 @@ body > * {
   text-align: center;
 }
 
-.tabel-mata-kuliah .kelas p:first-child {
-  font-size: 1em;
+.tabel-mata-kuliah .kelas p:nth-child(2) {
   font-weight: bold;
-  margin-bottom: 0.5em;
 }
 
 .tabel-mata-kuliah .kelas__kelas-bertabrakan li {
