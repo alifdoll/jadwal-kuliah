@@ -102,7 +102,6 @@ class JadwalKuliah {
                 });
                 const ulKelasBertabrakan = divKelas.appendChild(document.createElement('ul'));
                 ulKelasBertabrakan.classList.add('kelas__kelas-bertabrakan');
-                ulKelasBertabrakan.style.marginTop = 'calc(-1px - 0.5rem)';
                 divKelas.appendChild(document.createElement('p')).textContent = kelas.kode;
                 divKelas.setAttribute('data-kode-kelas', kelas.kode);
                 kelas.jadwal.forEach((jadwal) => {

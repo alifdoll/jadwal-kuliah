@@ -87,7 +87,7 @@ body > * {
   border: var(--border);
   color: var(--kelas-bertabrakan-color);
   font-size: 0.8em;
-  margin: 0 0 0 calc(-1px - 0.5rem);
+  margin: calc(-1px - 0.5rem) 0 0 calc(-1px - 0.5rem);
   display: none;
   padding: 0.5rem;
   position: absolute;
@@ -106,7 +106,7 @@ body > * {
 }
 
 .tabel-mata-kuliah .kelas p {
-  font-size: 0.9em;
+  font-size: 0.8em;
   margin: 0;
   text-align: center;
 }
@@ -160,5 +160,4 @@ body > * {
 
 .tabel-jadwal .jadwal__detail p:first-child {
   font-weight: bold;
-  margin-bottom: 0.4em;
 }
