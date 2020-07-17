@@ -1,5 +1,5 @@
 class JadwalKuliah {
-    static daftarHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
+    static daftarHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
 
     static jadwalKeString(jadwal) {
         return `${jadwal.hari}, ${jadwal.waktuMulai} - ${jadwal.waktuBerakhir}`;
@@ -32,12 +32,6 @@ class JadwalKuliah {
         this.daftarMataKuliah = daftarMataKuliah;
         this.jumlahKelasDipilih = 0;
 
-        this.batasAwalHari = JadwalKuliah.daftarHari.indexOf(
-            this.daftarMataKuliah[0].kelas[0].jadwal[0].hari
-        );
-        this.batasAkhirHari = JadwalKuliah.daftarHari.indexOf(
-            this.daftarMataKuliah[0].kelas[0].jadwal[0].hari
-        );
         this.batasAwalWaktu = JadwalKuliah.stringWaktuKeTotalMenit(
             this.daftarMataKuliah[0].kelas[0].jadwal[0].waktuMulai
         );
@@ -47,13 +41,13 @@ class JadwalKuliah {
         this.daftarMataKuliah.forEach((mataKuliah) => {
             mataKuliah.kelas.forEach((kelas) => {
                 kelas.jadwal.forEach((jadwal) => {
-                    const totalMenitwaktuMulai = JadwalKuliah.stringWaktuKeTotalMenit(
+                    let totalMenitwaktuMulai = JadwalKuliah.stringWaktuKeTotalMenit(
                         jadwal.waktuMulai
                     );
                     if (totalMenitwaktuMulai < this.batasAwalWaktu) {
                         this.batasAwalWaktu = totalMenitwaktuMulai;
                     }
-                    const totalMenitwaktuBerakhir = JadwalKuliah.stringWaktuKeTotalMenit(
+                    let totalMenitwaktuBerakhir = JadwalKuliah.stringWaktuKeTotalMenit(
                         jadwal.waktuBerakhir
                     );
                     if (totalMenitwaktuBerakhir > this.batasAkhirWaktu) {
