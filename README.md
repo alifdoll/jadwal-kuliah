@@ -19,7 +19,7 @@ Aplikasi menyusun jadwal kuliah dalam satu minggu.
     new JadwalKuliah(
         document.querySelector('#tabel-mata-kuliah'), //elemen tabel dengan atribut class tabel-mata-kuliah
         document.querySelector('#tabel-jadwal'), //elemen tabel dengan atribut class tabel-jadwal
-        contohDaftarMataKuliah //array dari objek mata kuliah
+        daftarMataKuliah //array dari objek mata kuliah
     );
 </script>
 ```
@@ -66,7 +66,7 @@ Saat ini yang dapat dikustomisasi hanyalah variabel css dalam cakupan root (pseu
 [demo.html](demo/demo.html)
 
 ## Screenshot
-![Screenshot](res/screenshot.png "Screenshot")
+![Screenshot](res/screenshot-1.png "Screenshot")
 
 ---
 Menggunakan [lisensi MIT](LICENSE)
