@@ -41,13 +41,13 @@ class JadwalKuliah {
         this.daftarMataKuliah.forEach((mataKuliah) => {
             mataKuliah.kelas.forEach((kelas) => {
                 kelas.jadwal.forEach((jadwal) => {
-                    let totalMenitwaktuMulai = JadwalKuliah.stringWaktuKeTotalMenit(
+                    const totalMenitwaktuMulai = JadwalKuliah.stringWaktuKeTotalMenit(
                         jadwal.waktuMulai
                     );
                     if (totalMenitwaktuMulai < this.batasAwalWaktu) {
                         this.batasAwalWaktu = totalMenitwaktuMulai;
                     }
-                    let totalMenitwaktuBerakhir = JadwalKuliah.stringWaktuKeTotalMenit(
+                    const totalMenitwaktuBerakhir = JadwalKuliah.stringWaktuKeTotalMenit(
                         jadwal.waktuBerakhir
                     );
                     if (totalMenitwaktuBerakhir > this.batasAkhirWaktu) {
