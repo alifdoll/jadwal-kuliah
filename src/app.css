@@ -88,11 +88,10 @@ body > * {
   color: var(--kelas-bertabrakan-color);
   font-size: 0.8em;
   margin: 0 0 0 calc(-1px - 0.5rem);
-  opacity: 0;
+  display: none;
   padding: 0.5rem;
   position: absolute;
   text-align: center;
-  transition: opacity;
   width: 12rem;
 }
 
@@ -101,9 +100,9 @@ body > * {
 }
 
 .tabel-mata-kuliah
-  .kelas[data-kelas-bertabrakan="true"]
-  .kelas__kelas-bertabrakan:hover {
-  opacity: 1;
+  .kelas[data-kelas-bertabrakan="true"]:hover
+  .kelas__kelas-bertabrakan {
+  display: inherit;
 }
 
 .tabel-mata-kuliah .kelas p {
