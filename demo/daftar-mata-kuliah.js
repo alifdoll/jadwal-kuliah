@@ -8,13 +8,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '09.45',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '09.45',
+                        waktuBerakhir: '12.30'
                     },
                     {
                         hari: 'Kamis',
-                        jamMulai: '09.45',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '09.45',
+                        waktuBerakhir: '12.30'
                     }
                 ]
             },
@@ -23,13 +23,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '13.00',
-                        jamBerakhir: '15.45'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '15.45'
                     },
                     {
                         hari: 'Kamis',
-                        jamMulai: '09.45',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '09.45',
+                        waktuBerakhir: '12.30'
                     }
                 ]
             },
@@ -38,13 +38,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '07.00',
-                        jamBerakhir: '09.45'
+                        waktuMulai: '07.00',
+                        waktuBerakhir: '09.45'
                     },
                     {
                         hari: 'Kamis',
-                        jamMulai: '07.00',
-                        jamBerakhir: '09.45'
+                        waktuMulai: '07.00',
+                        waktuBerakhir: '09.45'
                     }
                 ]
             },
@@ -53,13 +53,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '13.00',
-                        jamBerakhir: '15.45'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '15.45'
                     },
                     {
                         hari: 'Kamis',
-                        jamMulai: '13.00',
-                        jamBerakhir: '15.45'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '15.45'
                     }
                 ]
             },
@@ -69,13 +69,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Selasa',
-                        jamMulai: '09.45',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '09.45',
+                        waktuBerakhir: '12.30'
                     },
                     {
                         hari: 'Kamis',
-                        jamMulai: '13.00',
-                        jamBerakhir: '15.45'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '15.45'
                     }
                 ]
             },
@@ -84,13 +84,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '13.00',
-                        jamBerakhir: '15.45'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '15.45'
                     },
                     {
                         hari: 'Kamis',
-                        jamMulai: '13.00',
-                        jamBerakhir: '15.45'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '15.45'
                     }
                 ]
             },
@@ -99,13 +99,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '13.00',
-                        jamBerakhir: '15.45'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '15.45'
                     },
                     {
                         hari: 'Rabu',
-                        jamMulai: '09.45',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '09.45',
+                        waktuBerakhir: '12.30'
                     }
                 ]
             },
@@ -114,13 +114,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '09.45',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '09.45',
+                        waktuBerakhir: '12.30'
                     },
                     {
                         hari: 'Kamis',
-                        jamMulai: '13.00',
-                        jamBerakhir: '15.45'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '15.45'
                     }
                 ]
             }
@@ -135,8 +135,8 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Rabu',
-                        jamMulai: '07.00',
-                        jamBerakhir: '09.45'
+                        waktuMulai: '07.00',
+                        waktuBerakhir: '09.45'
                     }
                 ]
             },
@@ -145,8 +145,8 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Rabu',
-                        jamMulai: '13.00',
-                        jamBerakhir: '15.45'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '15.45'
                     }
                 ]
             },
@@ -155,8 +155,8 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '09.45',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '09.45',
+                        waktuBerakhir: '12.30'
                     }
                 ]
             },
@@ -165,8 +165,8 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Rabu',
-                        jamMulai: '09.45',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '09.45',
+                        waktuBerakhir: '12.30'
                     }
                 ]
             },
@@ -175,8 +175,8 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Selasa',
-                        jamMulai: '07.00',
-                        jamBerakhir: '09.45'
+                        waktuMulai: '07.00',
+                        waktuBerakhir: '09.45'
                     }
                 ]
             }
@@ -191,8 +191,8 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Kamis',
-                        jamMulai: '13.00',
-                        jamBerakhir: '15.45'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '15.45'
                     }
                 ]
             },
@@ -201,8 +201,8 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Selasa',
-                        jamMulai: '07.00',
-                        jamBerakhir: '09.45'
+                        waktuMulai: '07.00',
+                        waktuBerakhir: '09.45'
                     }
                 ]
             },
@@ -211,8 +211,8 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Kamis',
-                        jamMulai: '15.45',
-                        jamBerakhir: '18.30'
+                        waktuMulai: '15.45',
+                        waktuBerakhir: '18.30'
                     }
                 ]
             }
@@ -227,13 +227,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '13.00',
-                        jamBerakhir: '14.50'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '14.50'
                     },
                     {
                         hari: 'Rabu',
-                        jamMulai: '10.40',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '10.40',
+                        waktuBerakhir: '12.30'
                     }
                 ]
             },
@@ -242,13 +242,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '10.40',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '10.40',
+                        waktuBerakhir: '12.30'
                     },
                     {
                         hari: 'Rabu',
-                        jamMulai: '07.00',
-                        jamBerakhir: '08.50'
+                        waktuMulai: '07.00',
+                        waktuBerakhir: '08.50'
                     }
                 ]
             },
@@ -257,13 +257,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Selasa',
-                        jamMulai: '10.40',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '10.40',
+                        waktuBerakhir: '12.30'
                     },
                     {
                         hari: 'Kamis',
-                        jamMulai: '10.40',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '10.40',
+                        waktuBerakhir: '12.30'
                     }
                 ]
             },
@@ -272,13 +272,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '08.50',
-                        jamBerakhir: '10.40'
+                        waktuMulai: '08.50',
+                        waktuBerakhir: '10.40'
                     },
                     {
                         hari: 'Kamis',
-                        jamMulai: '08.50',
-                        jamBerakhir: '10.40'
+                        waktuMulai: '08.50',
+                        waktuBerakhir: '10.40'
                     }
                 ]
             },
@@ -287,13 +287,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '10.40',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '10.40',
+                        waktuBerakhir: '12.30'
                     },
                     {
                         hari: 'Rabu',
-                        jamMulai: '08.50',
-                        jamBerakhir: '10.40'
+                        waktuMulai: '08.50',
+                        waktuBerakhir: '10.40'
                     }
                 ]
             },
@@ -302,13 +302,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Senin',
-                        jamMulai: '10.40',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '10.40',
+                        waktuBerakhir: '12.30'
                     },
                     {
                         hari: 'Kamis',
-                        jamMulai: '10.40',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '10.40',
+                        waktuBerakhir: '12.30'
                     }
                 ]
             },
@@ -317,13 +317,13 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Selasa',
-                        jamMulai: '15.45',
-                        jamBerakhir: '17.35'
+                        waktuMulai: '15.45',
+                        waktuBerakhir: '17.35'
                     },
                     {
                         hari: 'Kamis',
-                        jamMulai: '10.40',
-                        jamBerakhir: '12.30'
+                        waktuMulai: '10.40',
+                        waktuBerakhir: '12.30'
                     }
                 ]
             }
@@ -338,8 +338,8 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Selasa',
-                        jamMulai: '07.00',
-                        jamBerakhir: '09.45'
+                        waktuMulai: '07.00',
+                        waktuBerakhir: '09.45'
                     }
                 ]
             },
@@ -348,8 +348,8 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Jumat',
-                        jamMulai: '13.00',
-                        jamBerakhir: '15.45'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '15.45'
                     }
                 ]
             },
@@ -358,8 +358,8 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Jumat',
-                        jamMulai: '13.00',
-                        jamBerakhir: '15.45'
+                        waktuMulai: '13.00',
+                        waktuBerakhir: '15.45'
                     }
                 ]
             },
@@ -368,8 +368,8 @@ const contohDaftarMataKuliah = [
                 jadwal: [
                     {
                         hari: 'Jumat',
-                        jamMulai: '15.45',
-                        jamBerakhir: '18.30'
+                        waktuMulai: '15.45',
+                        waktuBerakhir: '18.30'
                     }
                 ]
             }
