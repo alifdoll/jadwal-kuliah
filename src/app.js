@@ -146,7 +146,6 @@ class JadwalKuliah {
     pilihKelas(kodeMataKuliah, kodeKelas) {
         this.jumlahKelasDipilih++;
 
-        const daftarKelasBertabrakan = [];
         const mataKuliahDipilih = this.daftarMataKuliah.find((mataKuliah) =>
             mataKuliah.kode === kodeMataKuliah
         );
@@ -169,32 +168,24 @@ class JadwalKuliah {
                         if (JadwalKuliah.jadwalBertabrakan(
                             kelas.jadwal[i], kelasDipilih.jadwal[j]
                         )) {
-                            daftarKelasBertabrakan.push({
-                                kodeMataKuliah: mataKuliah.kode,
-                                kodeKelas: kelas.kode,
-                                indexJadwal: j
-                            });
+                            const divKelas = this.divKelas(
+                                kelasBertabrakan.kodeMataKuliah, kelasBertabrakan.kodeKelas
+                            );
+                            divKelas.setAttribute('data-kelas-bertabrakan', true);
+                            const liPesan = divKelas.querySelector('.kelas__kelas-bertabrakan').appendChild(
+                                document.createElement('li')
+                            );
+                            liPesan.innerHTML =
+                                `<b>${mataKuliahDipilih.nama} (Kelas ${kodeKelas})</b> pada <b>${JadwalKuliah.jadwalKeString(kelasDipilih.jadwal[j])}</b>`;
+                            liPesan.setAttribute(
+                                'data-kode-mata-kuliah-bertabrakan', kodeMataKuliah
+                            );
+                            liPesan.setAttribute('data-kode-kelas-bertabrakan', kodeKelas);
+                            liPesan.setAttribute('data-index-jadwal-bertabrakan', j);
                         }
                     }
                 }
             });
-        });
-
-        daftarKelasBertabrakan.forEach((kelasBertabrakan) => {
-            const divKelas = this.divKelas(
-                kelasBertabrakan.kodeMataKuliah, kelasBertabrakan.kodeKelas
-            );
-            divKelas.setAttribute('data-kelas-bertabrakan', true);
-            const liPesan = divKelas.querySelector('.kelas__kelas-bertabrakan').appendChild(
-                document.createElement('li')
-            );
-            liPesan.innerHTML =
-                `<b>${mataKuliahDipilih.nama} (Kelas ${kodeKelas})</b> pada <b>${JadwalKuliah.jadwalKeString(kelasDipilih.jadwal[kelasBertabrakan.indexJadwal])}</b>`;
-            liPesan.setAttribute(
-                'data-kode-mata-kuliah-bertabrakan', kodeMataKuliah
-            );
-            liPesan.setAttribute('data-kode-kelas-bertabrakan', kodeKelas);
-            liPesan.setAttribute('data-index-jadwal-bertabrakan', kelasBertabrakan.indexJadwal)
         });
 
         kelasDipilih.jadwal.forEach((jadwal) => {
