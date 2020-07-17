@@ -7,14 +7,19 @@ const daftarMataKuliah = [
                 kode: 'A',
                 jadwal: [
                     {
-                        hari: 'Senin',
-                        waktuMulai: '06.00',
-                        waktuBerakhir: '08.00'
-                    },
-                    {
-                        hari: 'Selasa',
+                        hari: 'Rabu',
                         waktuMulai: '10.00',
                         waktuBerakhir: '12.00'
+                    },
+                    {
+                        hari: 'Jumat',
+                        waktuMulai: '08.00',
+                        waktuBerakhir: '10.00'
+                    },
+                    {
+                        hari: 'Minggu',
+                        waktuMulai: '14.00',
+                        waktuBerakhir: '16.00'
                     }
                 ]
             }
@@ -28,9 +33,14 @@ const daftarMataKuliah = [
                 kode: 'A',
                 jadwal: [
                     {
-                        hari: 'Senin',
+                        hari: 'Kamis',
                         waktuMulai: '07.00',
                         waktuBerakhir: '09.00'
+                    },
+                    {
+                        hari: 'Minggu',
+                        waktuMulai: '15.00',
+                        waktuBerakhir: '17.00'
                     }
                 ]
             }
@@ -44,9 +54,14 @@ const daftarMataKuliah = [
                 kode: 'A',
                 jadwal: [
                     {
-                        hari: 'Selasa',
+                        hari: 'Rabu',
                         waktuMulai: '09.00',
                         waktuBerakhir: '11.00'
+                    },
+                    {
+                        hari: 'Jumat',
+                        waktuMulai: '06.00',
+                        waktuBerakhir: '09.00'
                     }
                 ]
             }

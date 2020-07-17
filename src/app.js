@@ -1,5 +1,5 @@
 class JadwalKuliah {
-    static daftarHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat'];
+    static daftarHari = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'];
 
     static jadwalKeString(jadwal) {
         return `${jadwal.hari}, ${jadwal.waktuMulai} - ${jadwal.waktuBerakhir}`;
@@ -32,6 +32,12 @@ class JadwalKuliah {
         this.daftarMataKuliah = daftarMataKuliah;
         this.jumlahKelasDipilih = 0;
 
+        this.batasAwalHari = JadwalKuliah.daftarHari.indexOf(
+            this.daftarMataKuliah[0].kelas[0].jadwal[0].hari
+        );
+        this.batasAkhirHari = JadwalKuliah.daftarHari.indexOf(
+            this.daftarMataKuliah[0].kelas[0].jadwal[0].hari
+        );
         this.batasAwalWaktu = JadwalKuliah.stringWaktuKeTotalMenit(
             this.daftarMataKuliah[0].kelas[0].jadwal[0].waktuMulai
         );
@@ -41,6 +47,13 @@ class JadwalKuliah {
         this.daftarMataKuliah.forEach((mataKuliah) => {
             mataKuliah.kelas.forEach((kelas) => {
                 kelas.jadwal.forEach((jadwal) => {
+                    const indexHari = JadwalKuliah.daftarHari.indexOf(jadwal.hari);
+                    if (indexHari < this.batasAwalHari) {
+                        this.batasAwalHari = indexHari;
+                    }
+                    if (indexHari > this.batasAkhirHari) {
+                        this.batasAkhirHari = indexHari;
+                    }
                     const totalMenitwaktuMulai = JadwalKuliah.stringWaktuKeTotalMenit(
                         jadwal.waktuMulai
                     );
@@ -56,7 +69,7 @@ class JadwalKuliah {
                 });
             });
         });
-
+        this.daftarHari = JadwalKuliah.daftarHari.slice(this.batasAwalHari, this.batasAkhirHari + 1);
         this.batasAwalWaktu = Number.parseInt(this.batasAwalWaktu / 60);
         if (this.batasAkhirWaktu % 60 === 0) {
             this.batasAkhirWaktu = (this.batasAkhirWaktu / 60) - 1;
@@ -102,10 +115,10 @@ class JadwalKuliah {
 
         this.tabelJadwal.createTHead();
         this.tabelJadwal.tHead.insertRow().appendChild(document.createElement('th')).colSpan =
-            JadwalKuliah.daftarHari.length + 1;
+            this.daftarHari.length + 1;
         this.tabelJadwal.tHead.insertRow().appendChild(document.createElement('th')).textContent =
             'Waktu';
-        JadwalKuliah.daftarHari.forEach((hari) => {
+        this.daftarHari.forEach((hari) => {
             this.tabelJadwal.tHead.rows[1].appendChild(document.createElement('th')).textContent =
                 hari;
         });
@@ -113,7 +126,7 @@ class JadwalKuliah {
         this.tabelJadwal.createTBody();
         for (let i = this.batasAwalWaktu; i <= this.batasAkhirWaktu; i++) {
             const row = this.tabelJadwal.tBodies[0].insertRow();
-            for (let i = 0; i <= JadwalKuliah.daftarHari.length; i++) {
+            for (let i = 0; i <= this.daftarHari.length; i++) {
                 row.insertCell();
             }
             row.firstChild.textContent = JadwalKuliah.totalMenitKeStringWaktu(i * 60);
@@ -192,7 +205,7 @@ class JadwalKuliah {
             const perbedaanWaktu = menitwaktuBerakhir - menitwaktuMulai;
 
             const divJadwal = this.tabelJadwal.tBodies[0].querySelector(
-                `tr:nth-child(${Number.parseInt(menitwaktuMulai / 60) - this.batasAwalWaktu + 1})>td:nth-child(${JadwalKuliah.daftarHari.indexOf(jadwal.hari) + 2})`
+                `tr:nth-child(${Number.parseInt(menitwaktuMulai / 60) - this.batasAwalWaktu + 1})>td:nth-child(${this.daftarHari.indexOf(jadwal.hari) + 2})`
             ).appendChild(document.createElement('div'));
             divJadwal.classList.add('jadwal');
             divJadwal.style.height =
