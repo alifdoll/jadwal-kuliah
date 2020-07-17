@@ -96,7 +96,7 @@ class JadwalKuliah {
                 const ulKelasBertabrakan = divKelas.appendChild(document.createElement('ul'));
                 ulKelasBertabrakan.classList.add('kelas__kelas-bertabrakan');
                 ulKelasBertabrakan.style.marginTop =
-                    `calc(-1px + 8px - ${divKelas.clientHeight}px)`;
+                    `calc(-1px + 0.5rem - ${divKelas.clientHeight}px)`;
             });
         });
 
