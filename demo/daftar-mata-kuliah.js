@@ -1,4 +1,4 @@
-const contohDaftarMataKuliah = [
+const daftarMataKuliah = [
     {
         kode: '1604A021',
         nama: 'PEMROGRAMAN BERORIENTASI OBJEK',
