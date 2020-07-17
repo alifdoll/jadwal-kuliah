@@ -168,9 +168,7 @@ class JadwalKuliah {
                         if (JadwalKuliah.jadwalBertabrakan(
                             kelas.jadwal[i], kelasDipilih.jadwal[j]
                         )) {
-                            const divKelas = this.divKelas(
-                                kelasBertabrakan.kodeMataKuliah, kelasBertabrakan.kodeKelas
-                            );
+                            const divKelas = this.divKelas(mataKuliah.kode, kelas.kode);
                             divKelas.setAttribute('data-kelas-bertabrakan', true);
                             const liPesan = divKelas.querySelector('.kelas__kelas-bertabrakan').appendChild(
                                 document.createElement('li')
