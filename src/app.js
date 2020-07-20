@@ -26,24 +26,35 @@ class JadwalKuliah {
         return !(waktuBerakhirJadwal2 <= waktuMulaiJadwal1 ? true : waktuMulaiJadwal2 >= waktuBerakhirJadwal1);
     }
 
-    constructor(tabelMataKuliah, tabelJadwal, daftarMataKuliah) {
+    constructor(tabelMataKuliah, tabelJadwal, daftarMataKuliah, preferensi = null) {
         this.tabelMataKuliah = tabelMataKuliah;
         this.tabelJadwal = tabelJadwal;
         this.daftarMataKuliah = daftarMataKuliah;
+
+        if (preferensi) {
+            this.daftarKolom = preferensi.daftarKolom ? preferensi.daftarKolom : ['Kode', 'Nama', 'Kelas'];
+        } else {
+            this.daftarKolom = ['Kode', 'Nama', 'Kelas'];
+        }
+
         this.jumlahKelasDipilih = 0;
 
         this.batasAwalHari = JadwalKuliah.daftarHari.indexOf(
             this.daftarMataKuliah[0].kelas[0].jadwal[0].hari
         );
+
         this.batasAkhirHari = JadwalKuliah.daftarHari.indexOf(
             this.daftarMataKuliah[0].kelas[0].jadwal[0].hari
         );
+
         this.batasAwalWaktu = JadwalKuliah.stringWaktuKeTotalMenit(
             this.daftarMataKuliah[0].kelas[0].jadwal[0].waktuMulai
         );
+
         this.batasAkhirWaktu = JadwalKuliah.stringWaktuKeTotalMenit(
             this.daftarMataKuliah[0].kelas[0].jadwal[0].waktuBerakhir
         );
+
         this.daftarMataKuliah.forEach((mataKuliah) => {
             mataKuliah.kelas.forEach((kelas) => {
                 kelas.jadwal.forEach((jadwal) => {
@@ -54,12 +65,14 @@ class JadwalKuliah {
                     if (indexHari > this.batasAkhirHari) {
                         this.batasAkhirHari = indexHari;
                     }
+
                     const totalMenitwaktuMulai = JadwalKuliah.stringWaktuKeTotalMenit(
                         jadwal.waktuMulai
                     );
                     if (totalMenitwaktuMulai < this.batasAwalWaktu) {
                         this.batasAwalWaktu = totalMenitwaktuMulai;
                     }
+
                     const totalMenitwaktuBerakhir = JadwalKuliah.stringWaktuKeTotalMenit(
                         jadwal.waktuBerakhir
                     );
@@ -69,7 +82,9 @@ class JadwalKuliah {
                 });
             });
         });
+
         this.daftarHari = JadwalKuliah.daftarHari.slice(this.batasAwalHari, this.batasAkhirHari + 1);
+
         this.batasAwalWaktu = Number.parseInt(this.batasAwalWaktu / 60);
         if (this.batasAkhirWaktu % 60 === 0) {
             this.batasAkhirWaktu = (this.batasAkhirWaktu / 60) - 1;
@@ -79,35 +94,43 @@ class JadwalKuliah {
 
         this.tabelMataKuliah.createTHead();
         this.tabelMataKuliah.tHead.insertRow();
-        ['Kode', 'Nama', 'Kelas'].forEach((header) => {
+        this.daftarKolom.forEach((header) => {
             this.tabelMataKuliah.tHead.rows[0].appendChild(document.createElement('th'))
                 .textContent = header;
         });
 
         this.tabelMataKuliah.createTBody();
         this.daftarMataKuliah.forEach((mataKuliah) => {
-            const row = this.tabelMataKuliah.tBodies[0].insertRow();
-            row.insertCell().textContent = mataKuliah.kode;
-            row.insertCell().textContent = mataKuliah.nama;
-            const divContainerKelas = row.insertCell().appendChild(
-                document.createElement('div')
-            );
-            divContainerKelas.classList.add('container-kelas');
-            divContainerKelas.setAttribute('data-kode-mata-kuliah', mataKuliah.kode);
-            mataKuliah.kelas.forEach((kelas) => {
-                const divKelas = divContainerKelas.appendChild(document.createElement('div'));
-                divKelas.classList.add('kelas');
-                divKelas.addEventListener('click', () => {
-                    this.clickKelas(mataKuliah.kode, kelas.kode);
-                });
-                const ulKelasBertabrakan = divKelas.appendChild(document.createElement('ul'));
-                ulKelasBertabrakan.classList.add('kelas__kelas-bertabrakan');
-                divKelas.appendChild(document.createElement('p')).textContent = kelas.kode;
-                divKelas.setAttribute('data-kode-kelas', kelas.kode);
-                kelas.jadwal.forEach((jadwal) => {
-                    divKelas.appendChild(document.createElement('p')).textContent =
-                        JadwalKuliah.jadwalKeString(jadwal);
-                });
+            const tr = this.tabelMataKuliah.tBodies[0].insertRow();
+            this.daftarKolom.forEach((kolom) => {
+                if (kolom.toLowerCase() === 'kelas') {
+                    const divContainerKelas = tr.insertCell().appendChild(
+                        document.createElement('div')
+                    );
+                    divContainerKelas.classList.add('container-kelas');
+                    divContainerKelas.setAttribute('data-kode-mata-kuliah', mataKuliah.kode);
+                    mataKuliah.kelas.forEach((kelas) => {
+                        const divKelas = divContainerKelas.appendChild(
+                            document.createElement('div')
+                        );
+                        divKelas.classList.add('kelas');
+                        divKelas.addEventListener('click', () => {
+                            this.clickKelas(mataKuliah.kode, kelas.kode);
+                        });
+                        const ulKelasBertabrakan = divKelas.appendChild(
+                            document.createElement('ul')
+                        );
+                        ulKelasBertabrakan.classList.add('kelas__kelas-bertabrakan');
+                        divKelas.appendChild(document.createElement('p')).textContent = kelas.kode;
+                        divKelas.setAttribute('data-kode-kelas', kelas.kode);
+                        kelas.jadwal.forEach((jadwal) => {
+                            divKelas.appendChild(document.createElement('p')).textContent =
+                                JadwalKuliah.jadwalKeString(jadwal);
+                        });
+                    });
+                } else {
+                    tr.insertCell().textContent = mataKuliah[kolom.toLowerCase()];
+                }
             });
         });
 

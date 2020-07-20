@@ -21,7 +21,10 @@
         new JadwalKuliah(
             document.querySelector('#tabel-mata-kuliah'),
             document.querySelector('#tabel-jadwal'),
-            daftarMataKuliah
+            daftarMataKuliah,
+            {
+                daftarKolom: ['ID', 'Kode', 'Nama', 'SKS', 'Ujian', 'Kelas']
+            }
         );
     </script>
 </body>

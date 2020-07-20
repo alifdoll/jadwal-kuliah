@@ -47,7 +47,19 @@ Aplikasi menyusun jadwal kuliah dalam satu minggu.
 ```
 
 ## Kustomisasi
-Saat ini yang dapat dikustomisasi hanyalah variabel css dalam cakupan root (pseudo-class `root`). Berikut adalah variabel-variabel yang dimaksud:
+### JavaScript
+Untuk menambahkan kolom yang diinginkan pada tabel mata kuliah (elemen `<table>` dengan atribut class `tabel-mata-kuliah`) dapat dilakukan dengan menambahkan objek konfigurasi ke constructor `JadwalKuliah`. Struktur objek tersebut adalah sebagai berikut:
+```javascript
+{
+  daftarKolom: ['Kode', 'Nama', 'Kelas'] //Array. (dari) String. Kolom (sekaligus nama property dari objek mata kuliah) yang ingin ditampilkan pada tabel mata kuliah.
+                                         //Urutan tampil pada tabel akan sesuai urutan nilai pada array ini.
+                                         //Ini adalah nilai standarnya.
+}
+```
+
+### CSS
+Kustomisasi untuk warna dapat dilakukan melalui variabel-variabel css berikut ini:
+
 |Nama variabel|Nilai standar|Deskripsi|
 |:-:|:-:|:-|
 |`border`|`1px solid #212121`|Ukuran, jenis dan warna batas pada sisi-sisi tabel|
